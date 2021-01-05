@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-<!-- 表格
+<!-- 表格 -->
     <el-table     
       :data="list"
       border
@@ -31,7 +31,7 @@
           <el-button type="danger" size="mini" icon="el-icon-delete" @click="removeDataById(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>
-    </el-table> -->
+    </el-table>
   </div>
 </template>  
 
@@ -46,23 +46,27 @@ export default {
             total:0,
             page:1,
             limit:10,
-           // teacherQuery:{}
+            teacherQuery:{}
         }
     },
     created(){//页面渲染之前执
-    this.getList
+    //console.log("this is create")
+    this.getList()
     },
     methods:{//创建具体的方法，调用teacher.js的方法
              getList() {
-            teacher.getTeacherListPage(this.page,this.limit)
+            console.log("this is get")
+            teacher.getTeacherListPage(this.page,this.limit,this.teacherQuery)
                 .then(response =>{//请求成功
+                    
                     //response接口返回的数据
-                    //console.log(response)
+                    console.log(response)
                     this.list = response.data.rows
                     this.total = response.data.total
                     console.log(this.list)   
                     console.log(this.total)
-                }) 
+                }) .catch(function(error){console.log(error)})
+
         }
     }
 
